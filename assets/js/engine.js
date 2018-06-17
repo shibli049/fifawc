@@ -90,6 +90,10 @@ var urlParams;
 function convertTimeZone(tz = "6") {
     const currentDate = new Date();
     // currentDate.setTime(currentDate.getTime() + parseFloat(tz) * 3600 * 1000);
+    const currentDateStart = new Date();
+    currentDateStart.setTime(currentDate.getTime() - 2 * 3600 * 1000);
+    const currentDateEnd = new Date();
+    currentDateEnd.setTime(currentDateEnd.getTime() + 12 * 3600 * 1000);
     $(".fixtures-body tr").each(function () {
         var date = $(this).find(".date").data("date");
         var time = $(this).find(".time").data("t");
@@ -106,8 +110,8 @@ function convertTimeZone(tz = "6") {
         }else {
             $(this).removeClass("match-completed");
         }
-
-        if(currentDate.getDate() === matchDate.getDate()){
+        
+        if(matchDate >= currentDateStart && matchDate <= currentDateEnd){
             $(this).addClass(["match-current"]);
         }else {
             $(this).removeClass("match-current");
